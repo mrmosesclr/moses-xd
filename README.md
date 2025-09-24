@@ -1,5 +1,4 @@
-A smart whatsApp bot 
-# MOSES-XD
+# A smart whatsApp bot By Marinyane-Tech 
 
 <img src="https://i.imgur.com/dBaSKWF.gif" height="90" width="100%">
 
@@ -9,7 +8,7 @@ A smart whatsApp bot
 
   <div align="center"> 
   <a href="https://youtube.com/@marinyamestudios"> 
-    <img src="https://github.com/mrmosesclr/MOSES-XD/blob/main/assets/bot_image.jpg" alt="MOSES-XD" height="300"> 
+    <img src="https://github.com/mrmosesclr/moses-xd/blob/main/assets/bot_image.jpg" alt="MOSES-XD" height="300"> 
   </a> 
 </div>
 
@@ -27,7 +26,7 @@ A smart whatsApp bot
 *_Start by forking Moses-xD to your own GitHub account. Click the button below to fork:_*
 
   <p align="center">
-  <a href="https://github.com/mrmosesclr/MOSES-XD"><img title="Developer" src="https://img.shields.io/badge/Author-MR MOSES CLR-00FFFF.svg?style=for-the-badge&logo=github"/>
+  <a href="https://github.com/mrmosesclr/moses-xd"><img title="Developer" src="https://img.shields.io/badge/Author-MR MOSES CLR-00FFFF.svg?style=for-the-badge&logo=github"/>
 
 ### Panel Deployment
 
@@ -53,11 +52,8 @@ For further customization and setup guidance, click the button below:
   <a href="https://t.me/mrmosesclr">
     <img src="https://img.shields.io/badge/Join%20Telegram-0078E7?style=for-the-badge&logo=telegram&logoColor=white" alt="Join Telegram"/>
   </a>
-  <a href="https://whatsapp.com/channel/0029VaFdPojJkK70RWo2Bf1l">
+  <a href="https://whatsapp.com/channel/0029VbAJcz56GcG5OcRCbN28">
     <img src="https://img.shields.io/badge/Join%20WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Join WA.Channel"/>
-  </a>
-<a href="https://chat.whatsapp.com/JGmReDo55rvAAe9GhgV8YO">
-    <img src="https://img.shields.io/badge/Join%20WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=black" alt="Join WA.Group"/>
   </a>
 </div>
 
@@ -65,21 +61,20 @@ For further customization and setup guidance, click the button below:
 
 ## 🙌 Contributions
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/mrmosesclr/MOSES-XD/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/mrmosesclr/moses-xd/issues).
 
 ---
 
 ## 🌟 Show your support
 
-If you like this project, please give it a [⭐️ star on GitHub](https://github.com/mrmosesclr/MOSES-XD)!
+If you like this project, please give it a [⭐️ star on GitHub](https://github.com/mrmosesclr/moses-xd/star)!
 
 
 ## Credits
 
 - [Munyaradzi-Marinyame](https://github.com/mrmosesclr)
 - [Baileys](https://github.com/adiwajshing/Baileys)
-- [Marinyame-Studios](https://github.com/moses) 
-- [MOSES](https://github.com/MOSES-XD)
+- [Marinyame-Tech]([https://github.com/moses888](https://whatsapp.com/channel/0029VbAJcz56GcG5OcRCbN28)) 
 
 ---
 
