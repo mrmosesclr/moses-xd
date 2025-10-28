@@ -1,4 +1,4 @@
-# A smart whatsApp bot By Marinyane-Tech 
+# A smart whatsApp bot By Marinyame-Tech 
 
 <img src="https://i.imgur.com/dBaSKWF.gif" height="90" width="100%">
 
@@ -26,7 +26,7 @@
 *_Start by forking Moses-xD to your own GitHub account. Click the button below to fork:_*
 
   <p align="center">
-  <a href="https://github.com/mrmosesclr/moses-xd"><img title="Developer" src="https://img.shields.io/badge/Author-MR MOSES CLR-00FFFF.svg?style=for-the-badge&logo=github"/>
+  <a href="https://github.com/mrmosesclr/moses-xd"><img title="Developer" src="https://img.shields.io/badge/Author-MUNYARADZI MARINYAME-00FFFF.svg?style=for-the-badge&logo=github"/>
 
 ### Panel Deployment
 
@@ -74,7 +74,7 @@ If you like this project, please give it a [⭐️ star on GitHub](https://githu
 
 - [Munyaradzi-Marinyame](https://github.com/mrmosesclr)
 - [Baileys](https://github.com/adiwajshing/Baileys)
-- [Marinyame-Tech]([https://github.com/moses888](https://whatsapp.com/channel/0029VbAJcz56GcG5OcRCbN28)) 
+- [xd](https://whatsapp.com/channel/0029VbAJcz56GcG5OcRCbN28))
 
 ---
 
