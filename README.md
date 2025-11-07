@@ -28,6 +28,26 @@
   <p align="center">
   <a href="https://github.com/mrmosesclr/moses-xd"><img title="Developer" src="https://img.shields.io/badge/Author-MUNYARADZI MARINYAME-00FFFF.svg?style=for-the-badge&logo=github"/>
 
+
+<div align="center">
+  <a href="https://moses-xd-pair-linker.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Easy%20Method-9b59b6?style=for-the-badge" alt="Generate Pair Code"/>
+  </a>
+</div>
+
+After getting creds.json file, upload it to session folder
+
+---
+
+Step 3: Deploy Now
+
+For further customization and setup guidance, click the button below:
+
+<div align="center">
+  <a href="https:">
+    <img src="https://img.shields.io/badge/Deploy Tutorial-000000?style=for-the-badge&logo=youtube" alt="YouTube Link"/>
+  </a>
+</div>
 ### Panel Deployment
 
 For further customization and setup guidance, click the button below:
