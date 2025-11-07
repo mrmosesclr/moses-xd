@@ -16,7 +16,6 @@
   <img src="https://readme-typing-svg.demolab.com?font=Black+Ops+One&size=70&pause=1000&color=FF0000&center=true&width=1000&height=80&lines=By+MR+MOSES+CLR" alt="Typing SVG" />
 </p>
 
-
 ---
 
 ## 𝐃𝐄𝐏𝐋𝐎𝐘 𝐒𝐄𝐓𝐔𝐏 ↕️
@@ -28,7 +27,7 @@
   <p align="center">
   <a href="https://github.com/mrmosesclr/moses-xd"><img title="Developer" src="https://img.shields.io/badge/Author-MUNYARADZI MARINYAME-00FFFF.svg?style=for-the-badge&logo=github"/>
 
-
+### Get XD Creds.json
 <div align="center">
   <a href="https://moses-xd-pair-linker.onrender.com" target="_blank">
     <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Easy%20Method-9b59b6?style=for-the-badge" alt="Generate Pair Code"/>
@@ -39,15 +38,16 @@ After getting creds.json file, upload it to session folder
 
 ---
 
-Step 3: Deploy Now
+**Step 3: Deploy Now**
 
 For further customization and setup guidance, click the button below:
 
 <div align="center">
-  <a href="https:">
+  <a href="[https:](https://youtu.be/_hq7_NeSREc?si=9OHDiIEvcLWls39C)">
     <img src="https://img.shields.io/badge/Deploy Tutorial-000000?style=for-the-badge&logo=youtube" alt="YouTube Link"/>
   </a>
 </div>
+
 ### Panel Deployment
 
 For further customization and setup guidance, click the button below:
