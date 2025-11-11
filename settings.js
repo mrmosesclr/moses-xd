@@ -3,13 +3,13 @@ const settings = {
   author: '‎',
   botName: "MOSES-XD",
   botOwner: 'moses', // Your name
-  ownerNumber: '263787673035', //Set your number here without + symbol, just add country code & number without any space
+  ownerNumber: '263774555520', //Set your number here without + symbol, just add country code & number without any space
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
   maxStoreMessages: 20, 
   storeWriteInterval: 10000,
   description: "This is a bot for managing group commands and automating tasks.",
-  version: "7.0.0",
+  version: "8.0.0",
   updateZipUrl: "https://github.com/mrmosesclr/moses-xd/archive/refs/heads/main.zip",
 };
 
