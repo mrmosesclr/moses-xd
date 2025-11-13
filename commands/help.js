@@ -176,7 +176,7 @@ async function helpCommand(sock, chatId, message) {
 ━━━━━━━━━━━━━━━━━━`;
 
     try {
-        const imagePath = path.join(__dirname, '../assets/bot_image.jpg');
+        const imagePath = path.join(__dirname, '../assets/bot_image.png');
         
         const buttons = [
             { buttonId: 'channel', buttonText: { displayText: '📢 Join Channel' }, type: 1 },
