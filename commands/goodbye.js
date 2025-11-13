@@ -1,9 +1,8 @@
-const { handleWelcome } = require('../lib/welcome');
-const { isWelcomeOn, getWelcome } = require('../lib/index');
-const { channelInfo } = require('../lib/messageConfig');
+const { handleGoodbye } = require('../lib/welcome');
+const { isGoodByeOn, getGoodbye } = require('../lib/index');
 const fetch = require('node-fetch');
 
-async function welcomeCommand(sock, chatId, message, match) {
+async function goodbyeCommand(sock, chatId, message, match) {
     // Check if it's a group
     if (!chatId.endsWith('@g.us')) {
         await sock.sendMessage(chatId, { text: 'This command can only be used in groups.' });
@@ -15,23 +14,22 @@ async function welcomeCommand(sock, chatId, message, match) {
                 message.message?.extendedTextMessage?.text || '';
     const matchText = text.split(' ').slice(1).join(' ');
 
-    await handleWelcome(sock, chatId, message, matchText);
+    await handleGoodbye(sock, chatId, message, matchText);
 }
 
-async function handleJoinEvent(sock, id, participants) {
-    // Check if welcome is enabled for this group
-    const isWelcomeEnabled = await isWelcomeOn(id);
-    if (!isWelcomeEnabled) return;
+async function handleLeaveEvent(sock, id, participants) {
+    // Check if goodbye is enabled for this group
+    const isGoodbyeEnabled = await isGoodByeOn(id);
+    if (!isGoodbyeEnabled) return;
 
-    // Get custom welcome message
-    const customMessage = await getWelcome(id);
+    // Get custom goodbye message
+    const customMessage = await getGoodbye(id);
 
     // Get group metadata
     const groupMetadata = await sock.groupMetadata(id);
     const groupName = groupMetadata.subject;
-    const groupDesc = groupMetadata.desc || 'No description available';
 
-    // Send welcome message for each new participant
+    // Send goodbye message for each leaving participant
     for (const participant of participants) {
         try {
             // Handle case where participant might be an object or not a string
@@ -61,22 +59,10 @@ async function handleJoinEvent(sock, id, participants) {
             if (customMessage) {
                 finalMessage = customMessage
                     .replace(/{user}/g, `@${displayName}`)
-                    .replace(/{group}/g, groupName)
-                    .replace(/{description}/g, groupDesc);
+                    .replace(/{group}/g, groupName);
             } else {
                 // Default message if no custom message is set
-                const now = new Date();
-                const timeString = now.toLocaleString('en-US', {
-                    month: '2-digit',
-                    day: '2-digit', 
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: true
-                });
-                
-                finalMessage = `╭╼━≪•𝙽𝙴𝚆 𝙼𝙴𝙼𝙱𝙴𝚁•≫━╾╮\n┃𝚆𝙴𝙻𝙲𝙾𝙼𝙴: @${displayName} 👋\n┃Member count: #${groupMetadata.participants.length}\n┃𝚃𝙸𝙼𝙴: ${timeString}⏰\n╰━━━━━━━━━━━━━━━╯\n\n*@${displayName}* Welcome to *${groupName}*! 🎉\n*Group 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝚃𝙸𝙾𝙽*\n${groupDesc}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ m-tech*`;
+                finalMessage = ` *@${displayName}* we will never miss you! `;
             }
             
             // Try to send with image first (always try images)
@@ -92,20 +78,19 @@ async function handleJoinEvent(sock, id, participants) {
                     console.log('Could not fetch profile picture, using default');
                 }
                 
-                // Construct API URL for welcome image
-                const apiUrl = `https://api.some-random-api.com/welcome/img/2/gaming3?type=join&textcolor=green&username=${encodeURIComponent(displayName)}&guildName=${encodeURIComponent(groupName)}&memberCount=${groupMetadata.participants.length}&avatar=${encodeURIComponent(profilePicUrl)}`;
+                // Construct API URL for goodbye image
+                const apiUrl = `https://api.some-random-api.com/welcome/img/2/gaming1?type=leave&textcolor=red&username=${encodeURIComponent(displayName)}&guildName=${encodeURIComponent(groupName)}&memberCount=${groupMetadata.participants.length}&avatar=${encodeURIComponent(profilePicUrl)}`;
                 
-                // Fetch the welcome image
+                // Fetch the goodbye image
                 const response = await fetch(apiUrl);
                 if (response.ok) {
                     const imageBuffer = await response.buffer();
                     
-                    // Send welcome image with caption (custom or default message)
+                    // Send goodbye image with caption (custom or default message)
                     await sock.sendMessage(id, {
                         image: imageBuffer,
                         caption: finalMessage,
-                        mentions: [participantString],
-                        ...channelInfo
+                        mentions: [participantString]
                     });
                     continue; // Skip to next participant
                 }
@@ -116,11 +101,10 @@ async function handleJoinEvent(sock, id, participants) {
             // Send text message (either custom message or fallback)
             await sock.sendMessage(id, {
                 text: finalMessage,
-                mentions: [participantString],
-                ...channelInfo
+                mentions: [participantString]
             });
         } catch (error) {
-            console.error('Error sending welcome message:', error);
+            console.error('Error sending goodbye message:', error);
             // Fallback to text message
             const participantString = typeof participant === 'string' ? participant : (participant.id || participant.toString());
             const user = participantString.split('@')[0];
@@ -130,19 +114,17 @@ async function handleJoinEvent(sock, id, participants) {
             if (customMessage) {
                 fallbackMessage = customMessage
                     .replace(/{user}/g, `@${user}`)
-                    .replace(/{group}/g, groupName)
-                    .replace(/{description}/g, groupDesc);
+                    .replace(/{group}/g, groupName);
             } else {
-                fallbackMessage = `Welcome @${user} to ${groupName}! 🎉`;
+                fallbackMessage = `Goodbye @${user}! 👋`;
             }
             
             await sock.sendMessage(id, {
                 text: fallbackMessage,
-                mentions: [participantString],
-                ...channelInfo
+                mentions: [participantString]
             });
         }
     }
 }
 
-module.exports = { welcomeCommand, handleJoinEvent };
+module.exports = { goodbyeCommand, handleLeaveEvent };
