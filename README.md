@@ -8,7 +8,7 @@
 
   <div align="center"> 
   <a href="https://youtube.com/@marinyamestudios"> 
-    <img src="https://github.com/mrmosesclr/moses-xd/blob/main/assets/bot_image.jpg" alt="MOSES-XD" height="300"> 
+    <img src="https://github.com/mrmosesclr/moses-xd/blob/main/assets/bot_image.png" alt="MOSES-XD" height="300"> 
   </a> 
 </div>
 
