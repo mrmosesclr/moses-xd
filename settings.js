@@ -1,9 +1,9 @@
 const settings = {
   packname: 'MOSES-XD',
-  author: '‎',
+  author: 'Munyaradzi',
   botName: "MOSES-XD",
   botOwner: 'moses', // Your name
-  ownerNumber: '263774555520', //Set your number here without + symbol, just add country code & number without any space
+  ownerNumber: '263782585488', //Set your number here without + symbol, just add country code & number without any space
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
   maxStoreMessages: 20, 
