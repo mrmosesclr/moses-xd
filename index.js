@@ -261,13 +261,25 @@ async function startXeonBotInc() {
             try {
                 const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
                 await XeonBotInc.sendMessage(botNumber, {
-                    text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
+                    text: `╭─✦「 ⚙️ʙᴏᴛ ᴄᴏɴɴᴇᴄᴛᴇᴅ 」✦─╮
+│
+├ 🤖 *Bot Identity*
+│   ├ 📛 ɴᴀᴍᴇ: ${settings.Name}
+│   ├ 🔧 ᴘʀᴇғɪx: [.]
+│   ├ 🤖 ᴍᴏᴅᴇ: public
+│   ├ 🏷️ ᴠᴇʀsɪᴏɴ: ${settings.version}
+│
+├ 👑 *Ownership*
+│   ├ 👤 ᴏᴡɴᴇʀ: ${settings.botOwner}
+│   ├ ✍️ ᴀᴜᴛʜᴏʀ: ${settings.author}
+│   └🔖sᴛᴀᴛᴜs: ᴏɴʟɪɴᴇ ᴀɴᴅ ʀᴇᴀᴅʏ✅
+╰────────────────────◆`,
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
                             newsletterJid: '120363400421273052@newsletter',
-                            newsletterName: '⏤ ͟͞ ❮❮ M̺͆O̺͆S̺͆E̺͆S̺͆-X̺͆D̺͆',
+                            newsletterName: '⏤ ͟͞ ❮❮ 𝗠𝗢𝗦𝗘𝗦-𝗫𝗗̺',
                             serverMessageId: -1
                         }
                     }
