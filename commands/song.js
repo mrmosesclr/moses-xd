@@ -301,7 +301,7 @@ async function songCommand(sock, chatId, message) {
         console.error('Song command error:', err);
         
         // Provide more specific error messages
-        let errorMessage = '❌ Failed to download song.';
+        let errorMessage = '❌ Xd can not download song.';
         if (err.message && err.message.includes('blocked')) {
             errorMessage = '❌ Download blocked. The content may be unavailable in your region or due to legal restrictions.';
         } else if (err.response?.status === 451 || err.status === 451) {
