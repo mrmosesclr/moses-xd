@@ -1,12 +1,13 @@
 const { handleWelcome } = require('../lib/welcome');
 const { isWelcomeOn, getWelcome } = require('../lib/index');
 const { channelInfo } = require('../lib/messageConfig');
+const { moses, commands, fakevCard } = require("../moses"); // keep this line
 const fetch = require('node-fetch');
 
 async function welcomeCommand(sock, chatId, message, match) {
     // Check if it's a group
     if (!chatId.endsWith('@g.us')) {
-        await sock.sendMessage(chatId, { text: 'This command can only be used in groups.' });
+        await sock.sendMessage(chatId, { text: 'This command can only be used in groups.' }, { quoted: fakevCard });
         return;
     }
 
@@ -19,44 +20,35 @@ async function welcomeCommand(sock, chatId, message, match) {
 }
 
 async function handleJoinEvent(sock, id, participants) {
-    // Check if welcome is enabled for this group
     const isWelcomeEnabled = await isWelcomeOn(id);
     if (!isWelcomeEnabled) return;
 
-    // Get custom welcome message
     const customMessage = await getWelcome(id);
-
-    // Get group metadata
     const groupMetadata = await sock.groupMetadata(id);
     const groupName = groupMetadata.subject;
     const groupDesc = groupMetadata.desc || 'No description available';
 
-    // Send welcome message for each new participant
     for (const participant of participants) {
         try {
-            // Handle case where participant might be an object or not a string
             const participantString = typeof participant === 'string' ? participant : (participant.id || participant.toString());
             const user = participantString.split('@')[0];
             
-            // Get user's display name
-            let displayName = user; // Default to phone number
+            let displayName = user;
             try {
                 const contact = await sock.getBusinessProfile(participantString);
                 if (contact && contact.name) {
                     displayName = contact.name;
                 } else {
-                    // Try to get from group participants
                     const groupParticipants = groupMetadata.participants;
                     const userParticipant = groupParticipants.find(p => p.id === participantString);
                     if (userParticipant && userParticipant.name) {
                         displayName = userParticipant.name;
                     }
                 }
-            } catch (nameError) {
+            } catch {
                 console.log('Could not fetch display name, using phone number');
             }
             
-            // Process custom message with variables
             let finalMessage;
             if (customMessage) {
                 finalMessage = customMessage
@@ -64,7 +56,6 @@ async function handleJoinEvent(sock, id, participants) {
                     .replace(/{group}/g, groupName)
                     .replace(/{description}/g, groupDesc);
             } else {
-                // Default message if no custom message is set
                 const now = new Date();
                 const timeString = now.toLocaleString('en-US', {
                     month: '2-digit',
@@ -76,56 +67,56 @@ async function handleJoinEvent(sock, id, participants) {
                     hour12: true
                 });
                 
-                finalMessage = `╭╼━≪•𝙽𝙴𝚆 𝙼𝙴𝙼𝙱𝙴𝚁•≫━╾╮\n┃𝚆𝙴𝙻𝙲𝙾𝙼𝙴: @${displayName} 👋\n┃Member count: #${groupMetadata.participants.length}\n┃𝚃𝙸𝙼𝙴: ${timeString}⏰\n╰━━━━━━━━━━━━━━━╯\n\n*@${displayName}* Welcome to *${groupName}*! 🎉\n*Group 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝚃𝙸𝙾𝙽*\n${groupDesc}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ m-tech*`;
+                finalMessage = `╭╼━≪•𝙽𝙴𝚆 𝙼𝙴𝙼𝙱𝙴𝚁•≫━╾╮
+┃𝚆𝙴𝙻𝙲𝙾𝙼𝙴: @${displayName} 👋
+┃Member count: #${groupMetadata.participants.length}
+┃𝚃𝙸𝙼𝙴: ${timeString}⏰
+╰━━━━━━━━━━━━━━━╯
+
+*@${displayName}* Welcome to *${groupName}*! 🎉
+*Group 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝚃𝙸𝙾𝙽*
+${groupDesc}
+
+> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ m-tech*`;
             }
             
-            // Try to send with image first (always try images)
             try {
-                // Get user profile picture
-                let profilePicUrl = `https://img.pyrocdn.com/dbKUgahg.png`; // Default avatar
+                let profilePicUrl = `https://img.pyrocdn.com/dbKUgahg.png`;
                 try {
                     const profilePic = await sock.profilePictureUrl(participantString, 'image');
-                    if (profilePic) {
-                        profilePicUrl = profilePic;
-                    }
-                } catch (profileError) {
+                    if (profilePic) profilePicUrl = profilePic;
+                } catch {
                     console.log('Could not fetch profile picture, using default');
                 }
                 
-                // Construct API URL for welcome image
                 const apiUrl = `https://api.some-random-api.com/welcome/img/2/gaming3?type=join&textcolor=green&username=${encodeURIComponent(displayName)}&guildName=${encodeURIComponent(groupName)}&memberCount=${groupMetadata.participants.length}&avatar=${encodeURIComponent(profilePicUrl)}`;
                 
-                // Fetch the welcome image
                 const response = await fetch(apiUrl);
                 if (response.ok) {
                     const imageBuffer = await response.buffer();
                     
-                    // Send welcome image with caption (custom or default message)
                     await sock.sendMessage(id, {
                         image: imageBuffer,
                         caption: finalMessage,
                         mentions: [participantString],
                         ...channelInfo
-                    });
-                    continue; // Skip to next participant
+                    }, { quoted: fakevCard });
+                    continue;
                 }
-            } catch (imageError) {
+            } catch {
                 console.log('Image generation failed, falling back to text');
             }
             
-            // Send text message (either custom message or fallback)
             await sock.sendMessage(id, {
                 text: finalMessage,
                 mentions: [participantString],
                 ...channelInfo
-            });
+            }, { quoted: fakevCard });
         } catch (error) {
             console.error('Error sending welcome message:', error);
-            // Fallback to text message
             const participantString = typeof participant === 'string' ? participant : (participant.id || participant.toString());
             const user = participantString.split('@')[0];
             
-            // Use custom message if available, otherwise use simple fallback
             let fallbackMessage;
             if (customMessage) {
                 fallbackMessage = customMessage
@@ -133,14 +124,24 @@ async function handleJoinEvent(sock, id, participants) {
                     .replace(/{group}/g, groupName)
                     .replace(/{description}/g, groupDesc);
             } else {
-                fallbackMessage = `Welcome @${user} to ${groupName}! 🎉`;
+                fallbackMessage = `Welcome ${user} to the ${groupName}
+╭───────────────────⊷
+*┋* ⚜️: Firstly help yourself by reading 
+*┋* The Group *${groupDesc}*
+*┋* 😤: Type *.menu* to explore all xd cmds
+*┋* ☠️: Click On The link 🖇️ Below, To 
+*┋* create your own WhatsApp Xd Bot
+*┋* 🔗: https://github.com/mrmosesclr/moses-xd/fork
+╰───────────────────⊷
+Do not forget To Give a Star to Our Repo💎
+> *© ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʀɪɴʏᴀᴍᴇ*`;
             }
             
             await sock.sendMessage(id, {
                 text: fallbackMessage,
                 mentions: [participantString],
                 ...channelInfo
-            });
+            }, { quoted: fakevCard });
         }
     }
 }
