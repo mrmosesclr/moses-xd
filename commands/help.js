@@ -1,6 +1,8 @@
 const settings = require('../settings');
 const fs = require('fs');
 const path = require('path');
+const { fakevCard } = require('../lib/fakevCard');
+const { moses, commands, fakevCard } = require("../moses")
 
 async function helpCommand(sock, chatId, message) {
     const helpMessage = `╭───────────────╶╶···◈
@@ -16,7 +18,6 @@ async function helpCommand(sock, chatId, message) {
 ├❍ .alive
 ├❍ .owner
 ├❍ .weather
-├❍ .lyrics
 ├❍ .groupinfo
 ├❍ .admins 
 ├❍ .vv
@@ -41,8 +42,6 @@ async function helpCommand(sock, chatId, message) {
 ├❍ .tagall 
 ├❍ .resetlink
 ├❍ .unmute
-├❍ .tag
-├❍ .tagall
 ├❍ .chatbot
 ├❍ .goodbye
 ├❍ .warn
@@ -111,7 +110,8 @@ async function helpCommand(sock, chatId, message) {
 ├❍ .song
 ├❍ .video
 ├❍ .facebook
-├❍ .spotify 
+├❍ .spotify
+├❍ .lyrics
 ╰───────────╶╶···◈
 
 ╭─「 *ᴛᴏᴏʟs*」──···◈
@@ -176,33 +176,25 @@ async function helpCommand(sock, chatId, message) {
 ━━━━━━━━━━━━━━━━━━`;
 
     try {
-        const imagePath = path.join(__dirname, '../assets/bot_image.png');
-        
-        const buttons = [
-            { buttonId: 'channel', buttonText: { displayText: '📢 Join Channel' }, type: 1 },
-            { buttonId: 'owner', buttonText: { displayText: '📞 Owner' }, type: 1 },
-            { buttonId: 'support', buttonText: { displayText: '🔗 Support' }, type: 1 }
-        ];
-
-        if (fs.existsSync(imagePath)) {
-            const imageBuffer = fs.readFileSync(imagePath);
-            
-            await sock.sendMessage(chatId, {
-                image: imageBuffer,
-                caption: helpMessage,
-                buttons: buttons,
-                headerType: 1
-            }, { quoted: message });
-        } else {
-            console.error('Bot image not found at:', imagePath);
-            await sock.sendMessage(chatId, { 
-                text: helpMessage,
-                buttons: buttons,
-                headerType: 1
-            });
+    // ✅ UPDATED IMAGE URL - your catbox link
+    const imageUrl = 'https://files.catbox.moe/bn3rpd.jpeg';
+    
+    await sock.sendMessage(chatId, {
+        image: { url: imageUrl },
+        caption: helpMessage,
+        contextInfo: {
+            forwardingScore: 1,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '0029VbCJS1CC6ZvfXAlGYd1j@newsletter',
+                newsletterName: '𝗠𝗢𝗦𝗘𝗦-𝗫𝗗',
+                serverMessageId: -1
+            }
         }
-    } catch (error) {
-        console.error('Error in help command:', error);
+    }, { quoted: message, ...fakevCard });
+    
+} catch (error) {
+    console.error('Error in help command:', error);
         await sock.sendMessage(chatId, { text: helpMessage });
     }
 }
