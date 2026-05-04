@@ -1,5 +1,6 @@
 const os = require('os');
 const settings = require('../settings.js');
+const { moses, commands, fakevCard } = require("../moses");
 
 function formatTime(seconds) {
     const days = Math.floor(seconds / (24 * 60 * 60));
@@ -21,7 +22,7 @@ function formatTime(seconds) {
 async function pingCommand(sock, chatId, message) {
     try {
         const start = Date.now();
-        await sock.sendMessage(chatId, { text: ' *𝙼𝚊𝚛𝚒𝚗𝚢𝚊𝚖𝚎-𝚃𝚎𝚌𝚑* ' }, { quoted: message });
+        await sock.sendMessage(chatId, { text: ' *𝙼𝚊𝚛𝚒𝚗𝚢𝚊𝚖𝚎-𝚃𝚎𝚌𝚑* ' }, { quoted: fakevCard });
         const end = Date.now();
         const ping = Math.round((end - start) / 2);
 
@@ -30,12 +31,11 @@ async function pingCommand(sock, chatId, message) {
 
         const botInfo = `🤖 *𝚡𝚍* 𝚜𝚙𝚎𝚎𝚍: ${ping} ms`.trim();
 
-        // Reply to the original message with the bot info
-        await sock.sendMessage(chatId, { text: botInfo},{ quoted: message });
+        await sock.sendMessage(chatId, { text: botInfo }, { quoted: fakevCard });
 
     } catch (error) {
         console.error('Error in ping command:', error);
-        await sock.sendMessage(chatId, { text: '❌ Failed to get bot status.' });
+        await sock.sendMessage(chatId, { text: '❌ Failed to get bot status.' }, { quoted: fakevCard });
     }
 }
 
