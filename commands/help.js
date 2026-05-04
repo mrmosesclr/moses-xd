@@ -1,7 +1,6 @@
 const settings = require('../settings');
 const fs = require('fs');
 const path = require('path');
-const { fakevCard } = require('../lib/fakevCard');
 const { moses, commands, fakevCard } = require("../moses")
 
 async function helpCommand(sock, chatId, message) {
@@ -24,7 +23,6 @@ async function helpCommand(sock, chatId, message) {
 ├❍ .trt 
 ├❍ .jid
 ├❍ .attp
-├❍ groupinfo
 ├❍ .tts
 ╰───────────╶╶···◈
 
@@ -176,25 +174,24 @@ async function helpCommand(sock, chatId, message) {
 ━━━━━━━━━━━━━━━━━━`;
 
     try {
-    // ✅ UPDATED IMAGE URL - your catbox link
-    const imageUrl = 'https://files.catbox.moe/bn3rpd.jpeg';
-    
-    await sock.sendMessage(chatId, {
-        image: { url: imageUrl },
-        caption: helpMessage,
-        contextInfo: {
-            forwardingScore: 1,
-            isForwarded: true,
-            forwardedNewsletterMessageInfo: {
-                newsletterJid: '0029VbCJS1CC6ZvfXAlGYd1j@newsletter',
-                newsletterName: '𝗠𝗢𝗦𝗘𝗦-𝗫𝗗',
-                serverMessageId: -1
+        const imageUrl = 'https://files.catbox.moe/bn3rpd.jpeg';
+
+        await sock.sendMessage(chatId, {
+            image: { url: imageUrl },
+            caption: helpMessage,
+            contextInfo: {
+                forwardingScore: 999,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                    newsletterJid: '120363400421273052@newsletter',
+                    newsletterName: '𝗠𝗢𝗦𝗘𝗦-𝗫𝗗',
+                    serverMessageId: -1
+                }
             }
-        }
-    }, { quoted: message, ...fakevCard });
-    
-} catch (error) {
-    console.error('Error in help command:', error);
+        }, { quoted: fakevCard });
+
+    } catch (error) {
+        console.error('Error in help command:', error);
         await sock.sendMessage(chatId, { text: helpMessage });
     }
 }
