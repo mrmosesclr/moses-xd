@@ -1,4 +1,6 @@
+const { moses, commands, fakevCard } = require("../moses");
 const settings = require("../settings");
+
 async function aliveCommand(sock, chatId) {
     try {
         const message = `──〔 𝙈𝙊𝙎𝙀𝙎-𝙓𝘿 〕───
@@ -18,12 +20,13 @@ async function aliveCommand(sock, chatId) {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363400421273052@newsletter',
+                    newsletterJid: '0029VbCJS1CC6ZvfXAlGYd1j@newsletter',
                     newsletterName: '𝗠𝗢𝗦𝗘𝗦-𝗫𝗗',
                     serverMessageId: -1
                 }
             }
-        });
+        }, { quoted: fakevCard });
+
     } catch (error) {
         console.error('Error in alive command:', error);
         await sock.sendMessage(chatId, { text: 'XD IS ALIVE AND RUNNING!' });
