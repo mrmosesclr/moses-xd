@@ -3,6 +3,7 @@ const yts = require('yt-search');
 const fs = require('fs');
 const path = require('path');
 const { toAudio } = require('../lib/converter');
+const { moses, commands, fakevCard } = require("../moses");
 
 const AXIOS_DEFAULTS = {
 	timeout: 60000,
@@ -71,7 +72,7 @@ async function songCommand(sock, chatId, message) {
     try {
         const text = message.message?.conversation || message.message?.extendedTextMessage?.text || '';
         if (!text) {
-            await sock.sendMessage(chatId, { text: 'Usage: .song <song name or YouTube link>' }, { quoted: message });
+            await sock.sendMessage(chatId, { text: 'Usage: .song <song name or YouTube link>' }, { quoted: fakevCard });
             return;
         }
 
@@ -81,7 +82,7 @@ async function songCommand(sock, chatId, message) {
         } else {
 			const search = await yts(text);
 			if (!search || !search.videos.length) {
-                await sock.sendMessage(chatId, { text: 'No results found.' }, { quoted: message });
+                await sock.sendMessage(chatId, { text: 'No results found.' }, { quoted: fakevCard });
                 return;
             }
 			video = search.videos[0];
@@ -269,7 +270,7 @@ async function songCommand(sock, chatId, message) {
 			mimetype: finalMimetype,
 			fileName: `${(audioData.title || video.title || 'song').replace(/[^\w\s-]/g, '')}.${finalExtension}`,
 			ptt: false
-		}, { quoted: message });
+		}, { quoted: fakevCard });
 
 		// Cleanup: Delete temp files created during conversion
 		try {
@@ -301,7 +302,7 @@ async function songCommand(sock, chatId, message) {
         console.error('Song command error:', err);
         
         // Provide more specific error messages
-        let errorMessage = '❌ Xd can not download song.';
+        let errorMessage = '❌ Failed to download song.';
         if (err.message && err.message.includes('blocked')) {
             errorMessage = '❌ Download blocked. The content may be unavailable in your region or due to legal restrictions.';
         } else if (err.response?.status === 451 || err.status === 451) {
@@ -312,7 +313,7 @@ async function songCommand(sock, chatId, message) {
         
         await sock.sendMessage(chatId, { 
             text: errorMessage 
-        }, { quoted: message });
+        }, { quoted: fakevCard });
     }
 }
 
