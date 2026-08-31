@@ -49,6 +49,3 @@ async function imageCommand(sock, chatId, message) {
 }
 
 module.exports = imageCommand;
-
-/*Powered by Mr Moses*
-*Credits to M - Tech*`
